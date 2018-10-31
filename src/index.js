@@ -37,10 +37,9 @@ function reduce(array, fn, initial) {
  */
 function upperProps(obj) {
 
-    let arr1 = Object.keys(obj);
-    let upper = arr1.join().toUpperCase();
+    let arr = Object.keys(obj).join().toUpperCase().split(',');
 
-    return upper.split(',');
+    return arr;
 
 }
 
