@@ -80,7 +80,23 @@ function isSomeTrue(array, fn) {
  */
 function returnBadArguments(fn) {
 
-    for (let i = 1; i < )
+    if (typeof fn !== 'function') {
+        throw new Error('fn is not a function');
+    }
+
+    let arr = [];
+
+    for (let i = 1; i < arguments.length; i++) {
+
+        try {
+            fn(arguments[i]);
+        } catch (e) {
+            arr.push(arguments[i]);
+        }
+
+    }
+
+    return arr;
 }
 
 /*
