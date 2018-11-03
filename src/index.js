@@ -29,6 +29,9 @@ function createDivWithText(text) {
    prepend(document.querySelector('#one'), document.querySelector('#two')) // добавит элемент переданный первым аргументом в начало элемента переданного вторым аргументом
  */
 function prepend(what, where) {
+
+    where.insertBefore(what, where.firstChild);
+
 }
 
 /*
@@ -170,7 +173,7 @@ function observeChildNodes(where, fn) {
 
 export {
     createDivWithText,
-    // prepend,
+    prepend,
     // findAllPSiblings,
     // findError,
     // deleteTextNodes,
