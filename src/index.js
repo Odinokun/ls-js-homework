@@ -11,7 +11,13 @@
    createDivWithText('loftschool') // создаст элемент div, поместит в него 'loftschool' и вернет созданный элемент
  */
 function createDivWithText(text) {
-    // document.createEvent('div');
+
+    let el = document.createElement('div');
+
+    el.innerHTML = text;
+
+    return el;
+
 }
 
 /*
@@ -164,11 +170,11 @@ function observeChildNodes(where, fn) {
 
 export {
     createDivWithText,
-    prepend,
-    findAllPSiblings,
-    findError,
-    deleteTextNodes,
-    deleteTextNodesRecursive,
-    collectDOMStat,
-    observeChildNodes
+    // prepend,
+    // findAllPSiblings,
+    // findError,
+    // deleteTextNodes,
+    // deleteTextNodesRecursive,
+    // collectDOMStat,
+    // observeChildNodes
 };
