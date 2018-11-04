@@ -99,9 +99,13 @@ describe('ДЗ 4 - Работа с DOM', () => {
     describe('deleteTextNodesRecursive', () => {
         it('должна рекурсивно удалить все текстовые узлы', () => {
             let where = document.createElement('div');
-            let text1 = random('string');
-            let text2 = random('string');
-            let text3 = random('string');
+            // let text1 = random('string');
+            // let text2 = random('string');
+            // let text3 = random('string');
+
+            let text1 = 'Lorem 1';
+            let text2 = 'Lorem 2';
+            let text3 = 'Lorem 3';
 
             where.innerHTML = `<span> <div> <b>${text1}</b> </div> <p>${text2}</p> ${text3}</span>`;
             deleteTextNodesRecursive(where);
