@@ -54,6 +54,19 @@ function prepend(what, where) {
    findAllPSiblings(document.body) // функция должна вернуть массив с элементами div и span т.к. следующим соседом этих элементов является элемент с тегом P
  */
 function findAllPSiblings(where) {
+
+    let arr = [];
+
+    for (let i = 0; i < where.childNodes.length; i++) {
+
+        if (where.childNodes[i].tagName === 'P') {
+            arr.push(where.childNodes[i].previousSibling);
+        }
+
+    }
+
+    return arr;
+
 }
 
 /*
@@ -174,7 +187,7 @@ function observeChildNodes(where, fn) {
 export {
     createDivWithText,
     prepend,
-    // findAllPSiblings,
+    findAllPSiblings,
     // findError,
     // deleteTextNodes,
     // deleteTextNodesRecursive,
