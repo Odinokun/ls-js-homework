@@ -74,6 +74,7 @@ describe('ДЗ 4 - Работа с DOM', () => {
             let where = document.createElement('div');
             let text1 = random('string');
             let text2 = random('string');
+
             let result;
 
             where.innerHTML = ` <div>${text1}</div>, <div>${text2}</div>!!!`;

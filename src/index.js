@@ -90,19 +90,9 @@ function findAllPSiblings(where) {
 function findError(where) {
     let result = [];
 
-    console.log('===== AHTUNG 2 =====', where.textContent);
-
-    for (let child of where.childNodes) {
-        result.push(child.textContent);
+    for (let child of where.children) {
+        result.push(child.innerText);
     }
-
-    // for (let i = 0; i < where.childNodes.length; i++) {
-    //     // result.push(where.childNodes[i].innerHTML);
-    //     result.push(where.childNodes[i].textContent);
-    //     // console.log('===== AHTUNG =====', where.childNodes.innerText);
-    // }
-
-    console.log('===== AHTUNG res =====', result);
 
     return result;
 }
