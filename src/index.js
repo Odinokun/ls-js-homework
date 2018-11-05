@@ -101,10 +101,7 @@ function delegate(target, fn) {
  */
 function once(target, fn) {
 
-    // target.addEventListener('click', function (e) {
-    //     fn();
-    //     target.removeEventListener(eventName, fn);
-    // });
+    target.addEventListener('click', fn, { once: true });
 
 }
 
