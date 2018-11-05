@@ -6,9 +6,13 @@
  Функция должна добавлять обработчик fn события eventName к элементу target
 
  Пример:
-   addListener('click', document.querySelector('a'), () => console.log('...')) // должна добавить указанный обработчик кликов на указанный элемент
+   addListener('click', document.querySelector('a'), () => console.log('...'))
+   // должна добавить указанный обработчик кликов на указанный элемент
  */
 function addListener(eventName, target, fn) {
+
+    target.addEventListener(eventName, fn);
+
 }
 
 /*
@@ -17,7 +21,8 @@ function addListener(eventName, target, fn) {
  Функция должна удалять у элемента target обработчик fn события eventName
 
  Пример:
-   removeListener('click', document.querySelector('a'), someHandler) // должна удалить указанный обработчик кликов на указанный элемент
+   removeListener('click', document.querySelector('a'), someHandler)
+   // должна удалить указанный обработчик кликов на указанный элемент
  */
 function removeListener(eventName, target, fn) {
 }
@@ -25,10 +30,12 @@ function removeListener(eventName, target, fn) {
 /*
  Задание 3:
 
- Функция должна добавить к элементу target такой обработчик на события eventName, чтобы он отменял действия по умолчанию
+ Функция должна добавить к элементу target такой обработчик на события eventName,
+ чтобы он отменял действия по умолчанию
 
  Пример:
-   skipDefault('click', document.querySelector('a')) // после вызова функции, клики на указанную ссылку не должны приводить к переходу на другую страницу
+   skipDefault('click', document.querySelector('a'))
+   // после вызова функции, клики на указанную ссылку не должны приводить к переходу на другую страницу
  */
 function skipDefault(eventName, target) {
 }
