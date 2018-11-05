@@ -77,15 +77,13 @@ function emulateClick(target) {
  */
 function delegate(target, fn) {
 
-    // target.addEventListener('click', function () {
-    //
-    //     let btn = document.querySelector('button');
-    //
-    //     if (this === btn) {
-    //         fn();
-    //     }
-    //
-    // });
+    let btn = target.querySelector('button');
+
+    btn.addEventListener('click', function () {
+        
+        fn();
+
+    });
 
 }
 
@@ -102,6 +100,12 @@ function delegate(target, fn) {
    который вызовется только один раз и затем удалится
  */
 function once(target, fn) {
+
+    // target.addEventListener('click', function (e) {
+    //     fn();
+    //     target.removeEventListener(eventName, fn);
+    // });
+
 }
 
 export {
