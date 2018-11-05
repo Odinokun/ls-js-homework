@@ -44,9 +44,7 @@ function removeListener(eventName, target, fn) {
 function skipDefault(eventName, target) {
 
     target.addEventListener(eventName, function (e) {
-
-        e.preventDefault(eventName);
-
+        e.preventDefault();
     });
 
 }
@@ -61,6 +59,9 @@ function skipDefault(eventName, target) {
    // для указанного элемента должно быть сэмулировано события click
  */
 function emulateClick(target) {
+
+    target.dispatchEvent(new Event('click'));
+
 }
 
 /*
