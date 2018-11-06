@@ -116,7 +116,6 @@ function upperProps(obj) {
 //         sliceArr.push(array[i]);
 //     }
 //
-//     console.log('--=== arrEnd ===--', sliceArr);
 //
 //     return sliceArr;
 //
@@ -128,7 +127,9 @@ function slice(array, from = 0, to = array.length) {
         start,
         finish;
 
-    if (from < 0) {
+    if (from < (0 - array.length)) {
+        start = 0;
+    } else if (from < 0) {
         start = from + array.length;
     } else if (isFinite(from)) {
         start = from;
@@ -148,8 +149,6 @@ function slice(array, from = 0, to = array.length) {
         sliceArr.push(array[i]);
     }
 
-    console.log('--=== arrEnd ===--', sliceArr);
-
     return sliceArr;
 
 }
@@ -162,6 +161,32 @@ function slice(array, from = 0, to = array.length) {
  и возводить это значение в квадрат
  */
 function createProxy(obj) {
+
+    let proxy = new Proxy(obj, {
+        get(target, prop) {
+            console.log('--=== getTarget[prop] ===--', `${prop}`);
+
+            return target[prop];
+        },
+        set(target, prop, value) {
+            console.log('--=== setTarget[prop] ===--', `${prop} ${value}`);
+            target[prop] = value * value;
+
+            return true;
+        }
+    });
+
+    proxy.Object.keys(obj);
+
+    //
+    // // proxy.firstName; // чтение
+    //
+    // proxy.squaredNumber = obj; // запись
+    //
+    // // alert(obj.firstName); // Ilya
+    //
+    // console.log('--=== obj ===--', obj);
+
 }
 
 export {
