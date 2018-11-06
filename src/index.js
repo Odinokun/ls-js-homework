@@ -86,23 +86,71 @@ function upperProps(obj) {
  Посмотрите как работает slice и повторите это поведение для массива,
  который будет передан в параметре array
  */
-function slice(array, from, to) {
+// function slice(array, from, to) {
+//
+//     console.log('--=== arr ===--', array);
+//     console.log('--=== from ===--', from);
+//     console.log('--=== to ===--', to);
+//
+//     let sliceArr = [],
+//         start,
+//         finish;
+//
+//     if (from < 0) {
+//         start = 0;
+//     } else if (isFinite(from)) {
+//         start = from;
+//     } else {
+//         start = 0;
+//     }
+//
+//     if (to > array.length) {
+//         finish = array.length;
+//     } else if (isFinite(to)) {
+//         finish = to;
+//     } else {
+//         finish = array.length;
+//     }
+//
+//     for (var i = start; i < finish; i++) {
+//         sliceArr.push(array[i]);
+//     }
+//
+//     console.log('--=== arrEnd ===--', sliceArr);
+//
+//     return sliceArr;
+//
+// }
 
-    console.log('--=== arr ===--', array);
-    console.log('--=== from ===--', from);
-    console.log('--=== to ===--', to);
+function slice(array, from = 0, to = array.length) {
 
-    // let sliceArr = [];
-    //
-    // for (let i = 0; i < array.length; i++) {
-    //     if (array[i] >= from && array[i] < to) {
-    //         sliceArr.push(array[i]);
-    //     }
-    // }
-    //
-    // console.log('--=== arrEnd ===--', sliceArr);
-    //
-    // return sliceArr;
+    let sliceArr = [],
+        start,
+        finish;
+
+    if (from < 0) {
+        start = from + array.length;
+    } else if (isFinite(from)) {
+        start = from;
+    } else {
+        start = 0;
+    }
+
+    if (to < 0) {
+        finish = to + array.length;
+    } else if (to > array.length) {
+        finish = array.length;
+    } else if (isFinite(to)) {
+        finish = to;
+    }
+
+    for (let i = start; i < finish; i++) {
+        sliceArr.push(array[i]);
+    }
+
+    console.log('--=== arrEnd ===--', sliceArr);
+
+    return sliceArr;
 
 }
 
