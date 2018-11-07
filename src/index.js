@@ -77,12 +77,11 @@ function emulateClick(target) {
  */
 function delegate(target, fn) {
 
-    let btn = target.querySelector('button');
+    target.addEventListener('click', function () {
 
-    btn.addEventListener('click', function () {
-        
-        fn();
-
+        if (event.target === target.querySelector('button')) {
+            fn();
+        }
     });
 
 }
