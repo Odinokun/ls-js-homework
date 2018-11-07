@@ -78,8 +78,7 @@ function emulateClick(target) {
 function delegate(target, fn) {
 
     target.addEventListener('click', function () {
-
-        if (event.target === target.querySelector('button')) {
+        if (event.target.tagName === 'BUTTON') {
             fn();
         }
     });
