@@ -4,7 +4,8 @@
  Задание 1:
 
  Напишите аналог встроенного метода forEach для работы с массивами
- Посмотрите как работает forEach и повторите это поведение для массива, который будет передан в параметре array
+ Посмотрите как работает forEach и повторите это поведение для массива,
+ который будет передан в параметре array
  */
 function forEach(array, fn) {
 
@@ -86,41 +87,6 @@ function upperProps(obj) {
  Посмотрите как работает slice и повторите это поведение для массива,
  который будет передан в параметре array
  */
-// function slice(array, from, to) {
-//
-//     console.log('--=== arr ===--', array);
-//     console.log('--=== from ===--', from);
-//     console.log('--=== to ===--', to);
-//
-//     let sliceArr = [],
-//         start,
-//         finish;
-//
-//     if (from < 0) {
-//         start = 0;
-//     } else if (isFinite(from)) {
-//         start = from;
-//     } else {
-//         start = 0;
-//     }
-//
-//     if (to > array.length) {
-//         finish = array.length;
-//     } else if (isFinite(to)) {
-//         finish = to;
-//     } else {
-//         finish = array.length;
-//     }
-//
-//     for (var i = start; i < finish; i++) {
-//         sliceArr.push(array[i]);
-//     }
-//
-//
-//     return sliceArr;
-//
-// }
-
 function slice(array, from = 0, to = array.length) {
 
     let sliceArr = [],
@@ -163,29 +129,16 @@ function slice(array, from = 0, to = array.length) {
 function createProxy(obj) {
 
     let proxy = new Proxy(obj, {
-        get(target, prop) {
-            console.log('--=== getTarget[prop] ===--', `${prop}`);
+        set: function(target, name, value) {
 
-            return target[prop];
-        },
-        set(target, prop, value) {
-            console.log('--=== setTarget[prop] ===--', `${prop} ${value}`);
-            target[prop] = value * value;
+            target[name] = value * value;
 
             return true;
         }
+
     });
 
-    proxy.Object.keys(obj);
-
-    //
-    // // proxy.firstName; // чтение
-    //
-    // proxy.squaredNumber = obj; // запись
-    //
-    // // alert(obj.firstName); // Ilya
-    //
-    // console.log('--=== obj ===--', obj);
+    return proxy;
 
 }
 
