@@ -164,7 +164,11 @@ function deleteTextNodesRecursive(where) {
  Постарайтесь не создавать глобальных переменных
 
  Пример:
-   Для дерева <div class="some-class-1"><b>привет!</b> <b class="some-class-1 some-class-2">loftschool</b></div>
+   Для дерева
+   <div class="some-class-1">
+         <b>привет!</b>
+         <b class="some-class-1 some-class-2">loftschool</b>
+   </div>
    должен быть возвращен такой объект:
    {
      tags: { DIV: 1, B: 2},
@@ -173,6 +177,57 @@ function deleteTextNodesRecursive(where) {
    }
  */
 function collectDOMStat(root) {
+
+    // console.log('--== ROOT ==--', root);
+    // console.log('--== TAGS ==--', root.tagName);
+
+    let obj = {
+        tags: {},
+        classes: {},
+        texts: 0
+    };
+
+    // function classRecursive() {
+    //
+    //     let tempArr = [];
+    //     let elements = root.children;
+    //
+    //     for (let i = 0; i < elements.length; i++) {
+    //
+    //         tempArr.push(elements[i].classList);
+    //
+    //         if (elements[i].children) {
+    //             tempArr.push(elements[i].classList);
+    //             classRecursive(elements[i]);
+    //         } else {
+    //             tempArr.push(elements[i].classList);
+    //         }
+    //     }
+    //
+    //     console.log('***** tempArr *****', tempArr);
+    // }
+
+    function nodeRecursive(target) {
+
+        let arr = Array.from(target.childNodes);
+
+        for (let i = 0; i < arr.length; i++) {
+
+            if (arr[i].nodeType === 3) {
+                obj.texts += 1;
+            } else {
+                nodeRecursive(arr[i]);
+            }
+        }
+    }
+
+    classRecursive(root);
+    nodeRecursive(root);
+
+    // console.log('--== OBJ ==--', obj);
+
+    return obj;
+
 }
 
 /*
@@ -218,6 +273,6 @@ export {
     findError,
     deleteTextNodes,
     deleteTextNodesRecursive,
-    // collectDOMStat,
+    collectDOMStat,
     // observeChildNodes
 };
