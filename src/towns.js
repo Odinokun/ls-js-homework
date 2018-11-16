@@ -64,16 +64,34 @@ function loadTowns() {
                     return 0;
                 });
 
-                loadingBlock.remove();
-                filterBlock.style = 'block';
+                loadingBlock.textContent = ''; // удаляем надпись "Загрузка..."
+                filterBlock.style = 'block'; // показываем блок с полем ввода
 
                 resolve(data);
             })
             .catch(error => {
-                console.log('возникла ошибка', error);
+                loadingBlock.textContent = ''; // удаляем надпись "Загрузка..."
+                const errorText = document.createElement('h2');
+                const errorBtn = document.createElement('button');
+
+                errorText.textContent = 'Не удалось загрузить города';
+                errorBtn.textContent = 'Повторить';
+
+                homeworkContainer.appendChild(errorText);
+                homeworkContainer.appendChild(errorBtn);
+
+                console.log(error);
+                errorBtn.addEventListener('click', function () {
+                    errorText.remove();
+                    errorBtn.remove();
+                    console.clear();
+                    loadTowns();
+                })
             })
+
     });
 }
+
 loadTowns();
 
 /*
@@ -94,31 +112,37 @@ function isMatching(full, chunk) {
 }
 
 filterInput.addEventListener('keyup', function() {
-    loadTowns().then(cities => {
-        for (let i = 0; i < cities.length; i++) {
 
-            let full = filterInput.value;
+    loadTowns()
+        .then(cities => {
+            // очистка результатов фильтра перед наполнением
+            while (filterResult.firstChild) {
+                filterResult.removeChild(filterResult.firstChild);
+            }
 
-            // console.log('filterInput.value', full);
+            // создание списка
+            const ul = document.createElement('ul');
 
-            let chunk = cities[i].name;
+            filterResult.appendChild(ul);
 
-            isMatching(full, chunk);
+            const value = filterInput.value; // значение инпута
+            // сравнение значения инпута и массива городов
+            const filteredCities = cities.filter((city) => {
+                return isMatching(city.name, value);
+            });
 
-            // console.log('cities[i].name', chunk);
+            if (value.length > 0) { // проверяем инпут на заполненность
+                // наполняем список отобранными городами
+                filteredCities.forEach(city => {
+                    const li = document.createElement('li');
 
-        }
-    });
+                    li.textContent = city.name;
+                    ul.appendChild(li);
+                });
+            }
+
+        })
 });
-
-//     .then(cities => {
-//         console.log('CITIES', cities);
-//         // loadingBlock.remove();
-//         // filterBlock.style = 'block';
-//     })
-//     .catch (error => {
-//         console.log('возникла ошибка', error);
-//     });
 
 export {
     loadTowns,
