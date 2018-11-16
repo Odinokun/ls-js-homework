@@ -22,7 +22,8 @@
 
 /*
  homeworkContainer - это контейнер для всех ваших домашних заданий
- Если вы создаете новые html-элементы и добавляете их на страницу, то дабавляйте их только в этот контейнер
+ Если вы создаете новые html-элементы и добавляете их на страницу,
+ то дабавляйте их только в этот контейнер
 
  Пример:
    const newDiv = document.createElement('div');
@@ -37,6 +38,24 @@ const homeworkContainer = document.querySelector('#homework-container');
  https://raw.githubusercontent.com/smelukov/citiesTest/master/cities.json
  */
 function loadTowns() {
+    return new Promise((resolve) => {
+        fetch('https://raw.githubusercontent.com/smelukov/citiesTest/master/cities.json')
+            .then(res => res.json())
+            .then(data => {
+                data.sort(function (a, b) {
+                    if (a.name > b.name) {
+                        return 1;
+                    }
+                    if (a.name < b.name) {
+                        return -1;
+                    }
+
+                    return 0;
+                });
+
+                resolve(data);
+            })
+    });
 }
 
 /*
@@ -51,6 +70,20 @@ function loadTowns() {
    isMatching('Moscow', 'Moscov') // false
  */
 function isMatching(full, chunk) {
+
+    chunk = new RegExp(chunk, 'i');
+    let res = full.match(chunk);
+
+    if (res !== null) {
+
+        return true;
+
+    } else {
+
+        return false
+
+    }
+
 }
 
 /* Блок с надписью "Загрузка" */
