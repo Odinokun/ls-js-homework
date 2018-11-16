@@ -1,3 +1,4 @@
+
 /*
  Страница должна предварительно загрузить список городов из
  https://raw.githubusercontent.com/smelukov/citiesTest/master/cities.json
@@ -31,8 +32,18 @@
  */
 const homeworkContainer = document.querySelector('#homework-container');
 
+/* Блок с надписью "Загрузка" */
+const loadingBlock = homeworkContainer.querySelector('#loading-block');
+/* Блок с текстовым полем и результатом поиска */
+const filterBlock = homeworkContainer.querySelector('#filter-block');
+/* Текстовое поле для поиска по городам */
+const filterInput = homeworkContainer.querySelector('#filter-input');
+/* Блок с результатами поиска */
+const filterResult = homeworkContainer.querySelector('#filter-result');
+
 /*
- Функция должна вернуть Promise, который должен быть разрешен с массивом городов в качестве значения
+ Функция должна вернуть Promise,
+ который должен быть разрешен с массивом городов в качестве значения
 
  Массив городов пожно получить отправив асинхронный запрос по адресу
  https://raw.githubusercontent.com/smelukov/citiesTest/master/cities.json
@@ -53,15 +64,21 @@ function loadTowns() {
                     return 0;
                 });
 
+                loadingBlock.remove();
+                filterBlock.style = 'block';
+
                 resolve(data);
+            })
+            .catch(error => {
+                console.log('возникла ошибка', error);
             })
     });
 }
+loadTowns();
 
 /*
  Функция должна проверять встречается ли подстрока chunk в строке full
  Проверка должна происходить без учета регистра символов
-
  Пример:
    isMatching('Moscow', 'moscow') // true
    isMatching('Moscow', 'mosc') // true
@@ -70,34 +87,38 @@ function loadTowns() {
    isMatching('Moscow', 'Moscov') // false
  */
 function isMatching(full, chunk) {
-
     chunk = new RegExp(chunk, 'i');
     let res = full.match(chunk);
 
-    if (res !== null) {
-
-        return true;
-
-    } else {
-
-        return false
-
-    }
-
+    return res !== null;
 }
 
-/* Блок с надписью "Загрузка" */
-const loadingBlock = homeworkContainer.querySelector('#loading-block');
-/* Блок с текстовым полем и результатом поиска */
-const filterBlock = homeworkContainer.querySelector('#filter-block');
-/* Текстовое поле для поиска по городам */
-const filterInput = homeworkContainer.querySelector('#filter-input');
-/* Блок с результатами поиска */
-const filterResult = homeworkContainer.querySelector('#filter-result');
-
 filterInput.addEventListener('keyup', function() {
-    // это обработчик нажатия кливиш в текстовом поле
+    loadTowns().then(cities => {
+        for (let i = 0; i < cities.length; i++) {
+
+            let full = filterInput.value;
+
+            // console.log('filterInput.value', full);
+
+            let chunk = cities[i].name;
+
+            isMatching(full, chunk);
+
+            // console.log('cities[i].name', chunk);
+
+        }
+    });
 });
+
+//     .then(cities => {
+//         console.log('CITIES', cities);
+//         // loadingBlock.remove();
+//         // filterBlock.style = 'block';
+//     })
+//     .catch (error => {
+//         console.log('возникла ошибка', error);
+//     });
 
 export {
     loadTowns,
