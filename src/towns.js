@@ -139,6 +139,12 @@ filterInput.addEventListener('keyup', function() {
                     li.textContent = city.name;
                     ul.appendChild(li);
                 });
+            } else {
+
+                // очистка результатов фильтра перед наполнением
+                while (filterResult.firstChild) {
+                    filterResult.removeChild(filterResult.firstChild);
+                }
             }
 
         })
