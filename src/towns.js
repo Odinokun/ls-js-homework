@@ -53,7 +53,7 @@ function loadTowns() {
         fetch('https://raw.githubusercontent.com/smelukov/citiesTest/master/cities.json')
             .then(res => res.json())
             .then(data => {
-                data.sort(function (a, b) {
+                data.sort((a, b) => {
                     if (a.name > b.name) {
                         return 1;
                     }
@@ -81,7 +81,7 @@ function loadTowns() {
                 homeworkContainer.appendChild(errorBtn);
 
                 console.log(error);
-                errorBtn.addEventListener('click', function () {
+                errorBtn.addEventListener('click', () => {
                     errorText.remove();
                     errorBtn.remove();
                     console.clear();
@@ -111,7 +111,7 @@ function isMatching(full, chunk) {
     return res !== null;
 }
 
-filterInput.addEventListener('keyup', function() {
+filterInput.addEventListener('keyup', () => {
 
     loadTowns()
         .then(cities => {
