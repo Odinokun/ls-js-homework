@@ -37,6 +37,12 @@ const filterBlock = homeworkContainer.querySelector('#filter-block');
 const filterInput = homeworkContainer.querySelector('#filter-input');
 /* Блок с результатами поиска */
 const filterResult = homeworkContainer.querySelector('#filter-result');
+/* Надпись и кнопка при ошибке */
+const errorText = document.createElement('h2');
+const errorBtn = document.createElement('button');
+
+errorText.textContent = 'Не удалось загрузить города';
+errorBtn.textContent = 'Повторить';
 
 function isMatching(full, chunk) {
     chunk = new RegExp(chunk, 'i');
@@ -90,12 +96,6 @@ function loadTowns() {
             })
             .catch(() => {
                 loadingBlock.textContent = ''; // удаляем надпись "Загрузка..."
-                const errorText = document.createElement('h2');
-                const errorBtn = document.createElement('button');
-
-                errorText.textContent = 'Не удалось загрузить города';
-                errorBtn.textContent = 'Повторить';
-
                 homeworkContainer.appendChild(errorText);
                 homeworkContainer.appendChild(errorBtn);
 
@@ -150,7 +150,6 @@ filterInput.addEventListener('keyup', () => {
             }
         })
 });
-
 
 export {
     loadTowns,
