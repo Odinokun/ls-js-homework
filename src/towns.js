@@ -1,4 +1,3 @@
-
 /*
  Страница должна предварительно загрузить список городов из
  https://raw.githubusercontent.com/smelukov/citiesTest/master/cities.json
@@ -23,15 +22,13 @@
 
 /*
  homeworkContainer - это контейнер для всех ваших домашних заданий
- Если вы создаете новые html-элементы и добавляете их на страницу,
- то дабавляйте их только в этот контейнер
+ Если вы создаете новые html-элементы и добавляете их на страницу, то дабавляйте их только в этот контейнер
 
  Пример:
    const newDiv = document.createElement('div');
    homeworkContainer.appendChild(newDiv);
  */
 const homeworkContainer = document.querySelector('#homework-container');
-
 /* Блок с надписью "Загрузка" */
 const loadingBlock = homeworkContainer.querySelector('#loading-block');
 /* Блок с текстовым полем и результатом поиска */
@@ -41,9 +38,34 @@ const filterInput = homeworkContainer.querySelector('#filter-input');
 /* Блок с результатами поиска */
 const filterResult = homeworkContainer.querySelector('#filter-result');
 
+function isMatching(full, chunk) {
+    chunk = new RegExp(chunk, 'i');
+    let res = full.match(chunk);
+
+    return res !== null;
+}
+
+function sortArr(arr) {
+    arr.sort((a, b) => {
+        if (a.name > b.name) {
+            return 1;
+        }
+        if (a.name < b.name) {
+            return -1;
+        }
+
+        return 0;
+    });
+}
+
+function clearFilter() {
+    while (filterResult.firstChild) {
+        filterResult.removeChild(filterResult.firstChild);
+    }
+}
+
 /*
- Функция должна вернуть Promise,
- который должен быть разрешен с массивом городов в качестве значения
+ Функция должна вернуть Promise, который должен быть разрешен с массивом городов в качестве значения
 
  Массив городов пожно получить отправив асинхронный запрос по адресу
  https://raw.githubusercontent.com/smelukov/citiesTest/master/cities.json
@@ -51,25 +73,22 @@ const filterResult = homeworkContainer.querySelector('#filter-result');
 function loadTowns() {
     return new Promise((resolve) => {
         fetch('https://raw.githubusercontent.com/smelukov/citiesTest/master/cities.json')
-            .then(res => res.json())
-            .then(data => {
-                data.sort((a, b) => {
-                    if (a.name > b.name) {
-                        return 1;
-                    }
-                    if (a.name < b.name) {
-                        return -1;
-                    }
+            .then(response => {
+                if (response.status >= 400) {
+                    return Promise.reject();
+                }
 
-                    return 0;
-                });
+                return response.json()
+            })
+            .then(data => {
+                sortArr(data);
 
                 loadingBlock.textContent = ''; // удаляем надпись "Загрузка..."
                 filterBlock.style = 'block'; // показываем блок с полем ввода
 
                 resolve(data);
             })
-            .catch(error => {
+            .catch(() => {
                 loadingBlock.textContent = ''; // удаляем надпись "Загрузка..."
                 const errorText = document.createElement('h2');
                 const errorBtn = document.createElement('button');
@@ -80,11 +99,9 @@ function loadTowns() {
                 homeworkContainer.appendChild(errorText);
                 homeworkContainer.appendChild(errorBtn);
 
-                console.log(error);
                 errorBtn.addEventListener('click', () => {
                     errorText.remove();
                     errorBtn.remove();
-                    console.clear();
                     loadTowns();
                 })
             })
@@ -97,6 +114,7 @@ loadTowns();
 /*
  Функция должна проверять встречается ли подстрока chunk в строке full
  Проверка должна происходить без учета регистра символов
+
  Пример:
    isMatching('Moscow', 'moscow') // true
    isMatching('Moscow', 'mosc') // true
@@ -104,51 +122,35 @@ loadTowns();
    isMatching('Moscow', 'SCO') // true
    isMatching('Moscow', 'Moscov') // false
  */
-function isMatching(full, chunk) {
-    chunk = new RegExp(chunk, 'i');
-    let res = full.match(chunk);
-
-    return res !== null;
-}
-
 filterInput.addEventListener('keyup', () => {
-
     loadTowns()
         .then(cities => {
-            // очистка результатов фильтра перед наполнением
-            while (filterResult.firstChild) {
-                filterResult.removeChild(filterResult.firstChild);
-            }
+            // очистка результатов фильтра
+            clearFilter();
 
-            // создание списка
-            const ul = document.createElement('ul');
-
-            filterResult.appendChild(ul);
-
-            const value = filterInput.value; // значение инпута
+            // значение инпута
+            const value = filterInput.value;
             // сравнение значения инпута и массива городов
             const filteredCities = cities.filter((city) => {
                 return isMatching(city.name, value);
             });
 
-            if (value.length > 0) { // проверяем инпут на заполненность
+            // проверяем инпут на заполненность
+            if (value.length > 0) {
                 // наполняем список отобранными городами
                 filteredCities.forEach(city => {
-                    const li = document.createElement('li');
+                    const div = document.createElement('div');
 
-                    li.textContent = city.name;
-                    ul.appendChild(li);
+                    div.textContent = city.name;
+                    filterResult.appendChild(div);
                 });
             } else {
-
-                // очистка результатов фильтра перед наполнением
-                while (filterResult.firstChild) {
-                    filterResult.removeChild(filterResult.firstChild);
-                }
+                // очистка результатов фильтра при пустом инпуте
+                clearFilter();
             }
-
         })
 });
+
 
 export {
     loadTowns,
