@@ -70,33 +70,47 @@ function createCookieObj() {
     return cookieObj;
 }
 
+// добавляем строку в таблицу
+function addRowToTable() {
+    // создаем объект с значением из соответствующих полей cookie
+    let cookieObj = createCookieObj();
+
+    for (let key in cookieObj) {
+        if (cookieObj.hasOwnProperty(key)) {
+            let tableTr = document.createElement('tr'); // строка в таблице
+            let tableTd1 = document.createElement('td'); // ячейка в строке
+            let tableTd2 = document.createElement('td'); // ячейка в строке
+            let tableTd3 = document.createElement('td'); // ячейка в строке
+            let delCookieBtn = document.createElement('button'); // кнопка удаления cookie
+
+            listTable.appendChild(tableTr); // создали строку
+            tableTr.appendChild(tableTd1).textContent = key; // создали ячейку с name
+            tableTr.appendChild(tableTd2).textContent = cookieObj[key]; // создали ячейку с value
+            tableTr.appendChild(tableTd3).appendChild(delCookieBtn).textContent = 'Удалить'; // создали кнопку удаления cookie
+        }
+    }
+}
+
+// фильтрация
+// function isMatching(full, chunk) {
+//     chunk = new RegExp(chunk, 'i');
+//     let res = full.match(chunk);
+//
+//     return res !== null;
+// }
+
 addButton.addEventListener('click', () => {
     // если поля не пустые, то ...
     if (addNameInput.value !== '' && addValueInput.value !== '') {
         // создаем cookie с значением из соответствующих полей
         document.cookie = `${addNameInput.value} = ${addValueInput.value}`;
-        // создаем объект с значением из соответствующих полей cookie
-        let cookieObj = createCookieObj();
-
-        for (let key in cookieObj) {
-            if (cookieObj.hasOwnProperty(key)) {
-                let tableTr = document.createElement('tr'); // строка в таблице
-                let tableTd1 = document.createElement('td'); // ячейка в строке
-                let tableTd2 = document.createElement('td'); // ячейка в строке
-                let tableTd3 = document.createElement('td'); // ячейка в строке
-                let delCookieBtn = document.createElement('button'); // кнопка удаления cookie
-
-                listTable.appendChild(tableTr); // создали строку
-                tableTr.appendChild(tableTd1).textContent = key; // создали ячейку с name
-                tableTr.appendChild(tableTd2).textContent = cookieObj[key]; // создали ячейку с value
-                tableTr.appendChild(tableTd3).appendChild(delCookieBtn).textContent = 'Удалить'; // создали кнопку удаления cookie
-            }
-        }
+        // очищаем таблицу
+        listTable.innerHTML = '';
+        addRowToTable();
+        // очищаем поля для ввода новых cookie
+        addNameInput.value = '';
+        addValueInput.value = '';
     }
-
-    // очистили поля для ввода новых cookie
-    addNameInput.value = '';
-    addValueInput.value = '';
 });
 
 // удаление cookie из таблицы
@@ -109,11 +123,9 @@ listTable.addEventListener('click', e => {
     }
 });
 
-
-///////////////////***********************//////////////////////////
-///////////////// ниже мой первый вариант задания ///////////////////////
-////////////////////***********************/////////////////////////
-
+// /////////////////***********************//////////////////////////
+// /////////////// ниже мой первый вариант задания ///////////////////////
+// //////////////////***********************/////////////////////////
 
 // /*
 //  ДЗ 7 - Создать редактор cookie с возможностью фильтрации
