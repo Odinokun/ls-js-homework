@@ -69,10 +69,12 @@ addButton.addEventListener('click', () => {
     // кнопку удаления cookie
     let delCookieBtn = document.createElement('button');
 
-    listTable.appendChild(tableTr); // создали строку
-    tableTr.appendChild(tableTd1).textContent = addNameInput.value; // создали ячейку с именем
-    tableTr.appendChild(tableTd2).textContent = addValueInput.value; // создали ячейку с значением
-    tableTr.appendChild(tableTd3).appendChild(delCookieBtn).textContent = 'Удалить'; // создали кнопку удаления cookie
+    if (addNameInput.value !== '' && addValueInput.value !== '') {
+        listTable.appendChild(tableTr); // создали строку
+        tableTr.appendChild(tableTd1).textContent = addNameInput.value; // создали ячейку с именем
+        tableTr.appendChild(tableTd2).textContent = addValueInput.value; // создали ячейку с значением
+        tableTr.appendChild(tableTd3).appendChild(delCookieBtn).textContent = 'Удалить'; // создали кнопку удаления cookie
+    }
 
     // очистили поля для ввода новых cookie
     addNameInput.value = '';
