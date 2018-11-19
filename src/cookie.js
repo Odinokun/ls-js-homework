@@ -91,15 +91,8 @@ function addRowToTable() {
     }
 }
 
-// фильтрация
-// function isMatching(full, chunk) {
-//     chunk = new RegExp(chunk, 'i');
-//     let res = full.match(chunk);
-//
-//     return res !== null;
-// }
-
 addButton.addEventListener('click', () => {
+
     // если поля не пустые, то ...
     if (addNameInput.value !== '' && addValueInput.value !== '') {
         // создаем cookie с значением из соответствующих полей
