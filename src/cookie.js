@@ -57,5 +57,35 @@ filterNameInput.addEventListener('keyup', function() {
 });
 
 addButton.addEventListener('click', () => {
-    // здесь можно обработать нажатие на кнопку "добавить cookie"
+    // создали cookie с значением из соответствующих полей
+    document.cookie = `${addNameInput.value} = ${addValueInput.value}`;
+
+    // строка в таблице
+    let tableTr = document.createElement('tr');
+    // ячейки в строке
+    let tableTd1 = document.createElement('td');
+    let tableTd2 = document.createElement('td');
+    let tableTd3 = document.createElement('td');
+    // кнопку удаления cookie
+    let delCookieBtn = document.createElement('button');
+
+    listTable.appendChild(tableTr); // создали строку
+    tableTr.appendChild(tableTd1).textContent = addNameInput.value; // создали ячейку с именем
+    tableTr.appendChild(tableTd2).textContent = addValueInput.value; // создали ячейку с значением
+    tableTr.appendChild(tableTd3).appendChild(delCookieBtn).textContent = 'Удалить'; // создали кнопку удаления cookie
+
+    // очистили поля для ввода новых cookie
+    addNameInput.value = '';
+    addValueInput.value = '';
 });
+
+// удаление cookie из таблицы
+listTable.addEventListener('click', e => {
+    const nameCookieForDelete = e.path[2].firstChild.textContent;
+
+    if (e.target.tagName === 'BUTTON') {
+        e.path[2].remove();
+        document.cookie = `${nameCookieForDelete} = del; expires = Thu, 01 Jan 1970 00:00:01 GMT;`;
+    }
+});
+
