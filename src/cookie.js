@@ -57,9 +57,6 @@ filterNameInput.addEventListener('keyup', function() {
 });
 
 addButton.addEventListener('click', () => {
-    // создали cookie с значением из соответствующих полей
-    document.cookie = `${addNameInput.value} = ${addValueInput.value}`;
-
     // строка в таблице
     let tableTr = document.createElement('tr');
     // ячейки в строке
@@ -69,7 +66,11 @@ addButton.addEventListener('click', () => {
     // кнопку удаления cookie
     let delCookieBtn = document.createElement('button');
 
+    // если поля не пустые, то добавляем строку
     if (addNameInput.value !== '' && addValueInput.value !== '') {
+        // создали cookie с значением из соответствующих полей
+        document.cookie = `${addNameInput.value} = ${addValueInput.value}`;
+
         listTable.appendChild(tableTr); // создали строку
         tableTr.appendChild(tableTd1).textContent = addNameInput.value; // создали ячейку с именем
         tableTr.appendChild(tableTd2).textContent = addValueInput.value; // создали ячейку с значением
