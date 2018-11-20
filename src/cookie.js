@@ -162,7 +162,7 @@ filterNameInput.addEventListener('keyup', () => {
         }
         // заполняем таблицу
         addRowToTable(filteredObj);
-    } else { // если поле фильтра пустое как твоя жизнь, то...
+    } else {
         obj = createCookieObj();
 
         // заполняем таблицу
