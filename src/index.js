@@ -249,12 +249,10 @@ function collectDOMStat(root) {
     nodeRecursive(root);
 
     return obj;
-
 }
 
 /*
  Задание 8 *:
-
  8.1: Функция должна отслеживать добавление и удаление элементов внутри элемента
  переданного в параметре where
  Как только в where добавляются или удаляются элементы,
@@ -286,6 +284,43 @@ function collectDOMStat(root) {
    }
  */
 function observeChildNodes(where, fn) {
+    let obj = {
+        type: '',
+        nodes: []
+    };
+
+    let observer = new MutationObserver(function(mutations) {
+        mutations.forEach(function(mutation) {
+
+            // если происходит добавление
+            if (mutation.addedNodes) {
+                obj.type = 'insert';
+                for (let node of mutation.addedNodes) {
+                    obj.nodes.push(node);
+                }
+            }
+
+            // если происходит удаление
+            if (mutation.removedNodes) {
+                obj.type = 'remove';
+                for (let node of mutation.removedNodes) {
+                    obj.nodes.push(node);
+                }
+            }
+        });
+
+        fn(obj);
+
+    });
+
+    // конфигурация нашего observer:
+    let config = {
+        childList: true,
+        subtree: true
+    };
+
+    // передаём в качестве аргументов целевой элемент и его конфигурацию
+    observer.observe(where, config);
 }
 
 export {
