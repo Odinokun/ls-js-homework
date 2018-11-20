@@ -8,7 +8,8 @@
  1.2: В созданный элемент необходимо поместить текст, переданный в параметр text
 
  Пример:
-   createDivWithText('loftschool') // создаст элемент div, поместит в него 'loftschool' и вернет созданный элемент
+   createDivWithText('loftschool') 
+   // создаст элемент div, поместит в него 'loftschool' и вернет созданный элемент
  */
 function createDivWithText(text) {
 
@@ -80,11 +81,13 @@ function findAllPSiblings(where) {
 /*
  Задание 4:
 
- Функция представленная ниже, перебирает все дочерние узлы типа "элемент" внутри узла переданного
-  в параметре where и возвращает массив из текстового содержимого найденных элементов
+ Функция представленная ниже, 
+ перебирает все дочерние узлы типа "элемент" внутри узла переданного
+ в параметре where и возвращает массив из текстового содержимого найденных элементов
  Но похоже, что в код функции закралась ошибка и она работает не так, как описано.
 
- Необходимо найти и исправить ошибку в коде так, чтобы функция работала так, как описано выше.
+ Необходимо найти и исправить ошибку в коде так, 
+ чтобы функция работала так, как описано выше.
 
  Пример:
    Представим, что есть разметка:
@@ -93,7 +96,8 @@ function findAllPSiblings(where) {
       <div>loftschool</div>
    </dody>
 
-   findError(document.body) // функция должна вернуть массив с элементами 'привет' и 'loftschool'
+   findError(document.body) 
+   // функция должна вернуть массив с элементами 'привет' и 'loftschool'
  */
 function findError(where) {
     let result = [];
@@ -108,11 +112,14 @@ function findError(where) {
 /*
  Задание 5:
 
- Функция должна перебрать все дочерние узлы элемента переданного в параметре where и удалить
+ Функция должна перебрать все дочерние узлы элемента 
+ переданного в параметре where и удалить
  из него все текстовые узлы
 
- Задачу необходимо решить без использования рекурсии, то есть можно не уходить вглубь дерева.
- Так же будьте внимательны при удалении узлов, т.к. можно получить неожиданное поведение
+ Задачу необходимо решить без использования рекурсии, 
+ то есть можно не уходить вглубь дерева.
+ Так же будьте внимательны при удалении узлов, 
+ т.к. можно получить неожиданное поведение
  при переборе узлов
 
  Пример:
@@ -137,13 +144,28 @@ function deleteTextNodes(where) {
  Выполнить предудыщее задание с использование рекурсии - то есть
  необходимо заходить внутрь каждого дочернего элемента (углубляться в дерево)
 
- Задачу необходимо решить без использования рекурсии, то есть можно не уходить вглубь дерева.
- Так же будьте внимательны при удалении узлов, т.к. можно получить неожиданное поведение
+ Задачу необходимо решить без использования рекурсии, 
+ то есть можно не уходить вглубь дерева.
+ Так же будьте внимательны при удалении узлов, 
+ т.к. можно получить неожиданное поведение
  при переборе узлов
 
  Пример:
-   После выполнения функции, дерево <span> <div> <b>привет</b> </div> <p>loftchool</p> !!!</span>
-   должно быть преобразовано в <span><div><b></b></div><p></p></span>
+    После выполнения функции, дерево 
+    <span>
+        <div>
+            <b>привет</b>
+        </div>
+        <p>loftchool</p>
+        !!!    
+    </span>
+    должно быть преобразовано в 
+    <span>
+        <div>
+            <b></b>
+        </div>
+        <p></p>
+    </span>
  */
 function deleteTextNodesRecursive(where) {
 
@@ -162,8 +184,8 @@ function deleteTextNodesRecursive(where) {
 /*
  Задание 7 *:
 
- Необходимо собрать статистику по всем узлам внутри элемента переданного в параметре root
- и вернуть ее в виде объекта
+ Необходимо собрать статистику по всем узлам внутри элемента 
+ переданного в параметре root и вернуть ее в виде объекта
  Статистика должна содержать:
  - количество текстовых узлов
  - количество элементов каждого класса
@@ -174,8 +196,8 @@ function deleteTextNodesRecursive(where) {
  Пример:
    Для дерева
    <div class="some-class-1">
-         <b>привет!</b>
-         <b class="some-class-1 some-class-2">loftschool</b>
+     <b>привет!</b>
+     <b class="some-class-1 some-class-2">loftschool</b>
    </div>
    должен быть возвращен такой объект:
    {
@@ -186,53 +208,45 @@ function deleteTextNodesRecursive(where) {
  */
 function collectDOMStat(root) {
 
-    // console.log('--== ROOT ==--', root);
-    // console.log('--== TAGS ==--', root.tagName);
-
     let obj = {
         tags: {},
         classes: {},
         texts: 0
     };
 
-    // function classRecursive() {
-    //
-    //     let tempArr = [];
-    //     let elements = root.children;
-    //
-    //     for (let i = 0; i < elements.length; i++) {
-    //
-    //         tempArr.push(elements[i].classList);
-    //
-    //         if (elements[i].children) {
-    //             tempArr.push(elements[i].classList);
-    //             classRecursive(elements[i]);
-    //         } else {
-    //             tempArr.push(elements[i].classList);
-    //         }
-    //     }
-    //
-    //     console.log('***** tempArr *****', tempArr);
-    // }
+    function nodeRecursive(root) {
 
-    function nodeRecursive(target) {
+        for (let child of root.childNodes) {
 
-        let arr = Array.from(target.childNodes);
+            if (child.nodeType === 1) {
+                // заносим теги в объект
+                if (child.tagName in obj.tags) {
+                    obj.tags[child.tagName] += 1;
+                } else {
+                    obj.tags[child.tagName] = 1;
+                }
+                // заносим классы в объект
+                if (child.classList.length > 0) {
+                    for (let oneClass of child.classList) {
+                        if (oneClass in obj.classes) {
+                            obj.classes[oneClass] += 1;
+                        } else {
+                            obj.classes[oneClass] = 1;
+                        }
+                    }
+                }
+                // рекурсия
+                nodeRecursive(child);
+            }
 
-        for (let i = 0; i < arr.length; i++) {
-
-            if (arr[i].nodeType === 3) {
+            // считаем текстовые ноды
+            if ( child.nodeType === 3 ) {
                 obj.texts += 1;
-            } else {
-                nodeRecursive(arr[i]);
             }
         }
+
     }
-
-    // classRecursive(root);
     nodeRecursive(root);
-
-    // console.log('--== OBJ ==--', obj);
 
     return obj;
 
