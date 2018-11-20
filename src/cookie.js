@@ -87,6 +87,9 @@ function addRowToTable(obj) {
     }
 }
 
+// наполнение таблицы при загрузке страницы
+addRowToTable(createCookieObj());
+
 // удаление cookie из таблицы и кук
 listTable.addEventListener('click', e => {
     const nameCookieForDelete = e.path[2].firstChild.textContent;
