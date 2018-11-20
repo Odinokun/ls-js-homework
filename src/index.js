@@ -23,10 +23,13 @@ function createDivWithText(text) {
 /*
  Задание 2:
 
- Функция должна вставлять элемент, переданный в переметре what в начало элемента, переданного в параметре where
+ Функция должна вставлять элемент, переданный в переметре what в начало элемента,
+ переданного в параметре where
 
  Пример:
-   prepend(document.querySelector('#one'), document.querySelector('#two')) // добавит элемент переданный первым аргументом в начало элемента переданного вторым аргументом
+   prepend(document.querySelector('#one'), document.querySelector('#two'))
+   // добавит элемент переданный первым аргументом в начало элемента
+   переданного вторым аргументом
  */
 function prepend(what, where) {
 
@@ -37,9 +40,12 @@ function prepend(what, where) {
 /*
  Задание 3:
 
- 3.1: Функция должна перебрать все дочерние элементы узла, переданного в параметре where
+ 3.1: Функция должна перебрать все дочерние элементы узла,
+ переданного в параметре where
 
- 3.2: Функция должна вернуть массив, состоящий из тех дочерних элементов следующим соседом которых является элемент с тегом P
+ 3.2: Функция должна вернуть массив,
+ состоящий из тех дочерних элементов следующим соседом которых является
+ элемент с тегом P
 
  Пример:
    Представим, что есть разметка:
@@ -51,7 +57,9 @@ function prepend(what, where) {
       <p></p>
    </dody>
 
-   findAllPSiblings(document.body) // функция должна вернуть массив с элементами div и span т.к. следующим соседом этих элементов является элемент с тегом P
+   findAllPSiblings(document.body)
+   // функция должна вернуть массив с элементами div и span т.к.
+   следующим соседом этих элементов является элемент с тегом P
  */
 function findAllPSiblings(where) {
 
@@ -221,7 +229,7 @@ function collectDOMStat(root) {
         }
     }
 
-    classRecursive(root);
+    // classRecursive(root);
     nodeRecursive(root);
 
     // console.log('--== OBJ ==--', obj);
@@ -274,5 +282,5 @@ export {
     deleteTextNodes,
     deleteTextNodesRecursive,
     collectDOMStat,
-    // observeChildNodes
+    observeChildNodes
 };
